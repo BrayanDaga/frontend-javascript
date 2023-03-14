@@ -35,7 +35,7 @@ const listProduct = [
     id: 5,
     name: "sofa",
     price: 800.0,
-    category: "forniture",
+    category: "furniture",
     image:
       "https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
@@ -56,6 +56,37 @@ const shoppingCart = document.querySelector(".navbar-shopping-cart");
 const productDetail = document.querySelector(".product-detail");
 const containerProducts = document.querySelector(".cards-container");
 const productPreview = document.querySelector(".product-preview");
+
+// Nav search
+const pAll = document.querySelector("#pAll");
+const pClothes = document.querySelector("#pClothes");
+const pElectronics = document.querySelector("#pElectronics");
+const pFurnitures = document.querySelector("#pFurnitures");
+const pToys = document.querySelector("#pToys");
+const pOthers = document.querySelector("#pOthers");
+
+pAll.addEventListener("click", function(){
+  renderListProducts(null);
+});
+pClothes.addEventListener("click", function(){
+  renderListProducts("clothes");
+});
+pElectronics.addEventListener("click", function(){
+  renderListProducts("electronics");
+});
+pFurnitures.addEventListener("click", function(){
+  renderListProducts("furniture");
+});
+pToys.addEventListener("click", function(){
+  renderListProducts("toys");
+});
+pOthers.addEventListener("click", function(){
+  renderListProducts("others");
+});
+
+function navFilterProduct(){
+
+}
 
 navEmail.addEventListener("click", function () {
   productDetail.classList.add("inactive");
@@ -79,8 +110,10 @@ function toogleContent(element) {
   return element.classList.toggle("inactive");
 }
 
-function renderListProducts() {
-  listProduct.forEach((product) => {
+function renderListProducts(category = null) {
+  containerProducts.innerHTML = "";
+  const  products = productsByCategory( category);
+  products.forEach((product) => {
     containerProducts.innerHTML += `<div class="product-card">
         <img
           src="${product.image}"
@@ -140,4 +173,16 @@ function renderProductPreview(productid) {
     Add to cart
   </button>
 </div>`;
+}
+
+
+function productsByCategory( category) {
+  if(category) {
+    return listProduct.filter(function(product){
+      return product.category == category;
+    })
+  }else{
+    return listProduct;
+  }
+
 }
