@@ -65,28 +65,26 @@ const pFurnitures = document.querySelector("#pFurnitures");
 const pToys = document.querySelector("#pToys");
 const pOthers = document.querySelector("#pOthers");
 
-pAll.addEventListener("click", function(){
+pAll.addEventListener("click", function () {
   renderListProducts(null);
 });
-pClothes.addEventListener("click", function(){
+pClothes.addEventListener("click", function () {
   renderListProducts("clothes");
 });
-pElectronics.addEventListener("click", function(){
+pElectronics.addEventListener("click", function () {
   renderListProducts("electronics");
 });
-pFurnitures.addEventListener("click", function(){
+pFurnitures.addEventListener("click", function () {
   renderListProducts("furniture");
 });
-pToys.addEventListener("click", function(){
+pToys.addEventListener("click", function () {
   renderListProducts("toys");
 });
-pOthers.addEventListener("click", function(){
+pOthers.addEventListener("click", function () {
   renderListProducts("others");
 });
 
-function navFilterProduct(){
-
-}
+function navFilterProduct() {}
 
 navEmail.addEventListener("click", function () {
   productDetail.classList.add("inactive");
@@ -112,7 +110,7 @@ function toogleContent(element) {
 
 function renderListProducts(category = null) {
   containerProducts.innerHTML = "";
-  const  products = productsByCategory( category);
+  const products = productsByCategory(category);
   products.forEach((product) => {
     containerProducts.innerHTML += `<div class="product-card">
         <img
@@ -124,7 +122,7 @@ function renderListProducts(category = null) {
             <p>${product.name}</p>
           </div>
           <figure >
-            <img src="./icons/bt_add_to_cart.svg" alt="">
+            <img src="./icons/bt_add_to_cart.svg" alt="" class="addcart-img">
           </figure>
         </div>
         </div>`;
@@ -169,20 +167,18 @@ function renderProductPreview(productid) {
   <p>${productSelect.name}</p>
   <p>With its practical position, this bike also fulfills a decorative function, add your hall or workspace.</p>
   <button class="primary-button add-to-cart-button">
-    <img src="./icons/bt_add_to_cart.svg" alt="add to cart">
+    <img src="./icons/bt_add_to_cart.svg" alt="add to cart" class="addcart-img">
     Add to cart
   </button>
 </div>`;
 }
 
-
-function productsByCategory( category) {
-  if(category) {
-    return listProduct.filter(function(product){
+function productsByCategory(category) {
+  if (category) {
+    return listProduct.filter(function (product) {
       return product.category == category;
-    })
-  }else{
+    });
+  } else {
     return listProduct;
   }
-
 }

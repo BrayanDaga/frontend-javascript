@@ -4,14 +4,43 @@
   --very-light-pink: #C7C7C7;
   --text-input-field: #F7F7F7;
   --hospital-green: #ACD9B2;
+  --hospital-green-d: #0fcd28;
   --sm: 14px;
   --md: 16px;
   --lg: 18px;
 }
 
+.light-theme {
+  --bg: var(--white);
+  --fontColor: var(--black);
+  --btnBg: var(--hospital-green);
+  --filter: 1;
+  --logosatu: 1%;
+  --logoinve: 0;
+  --shopinve: 0;
+
+}
+
+.dark-theme {
+  --bg: var(--black);
+  --fontColor: var(--white);
+  --btnBg: var(--black);
+  --btnBg: var(--hospital-green-d);
+  --filter: 5;
+  --logosatu: 1000%;
+  --logoinve: 30%;
+  --shopinve: 100%;
+
+}
+
 body {
+  background-color: var(--bg);
   margin: 0;
   font-family: 'Quicksand', sans-serif;
+}
+
+.addcart-img{
+  filter: saturate(var(--filter));
 }
 
 nav {
@@ -31,6 +60,7 @@ nav {
 
 .logo {
   width: 100px;
+  filter:  saturate( var(--logosatu) )  invert( var(--logoinve) )  contrast(100%) ;
 }
 
 /* Nav principal */
@@ -56,15 +86,15 @@ nav {
 .navbar-right ul li a {
   text-decoration: none;
   color: var(--very-light-pink);
-  border: 1px solid var(--white);
+  border: 1px solid var(--bg);
   padding: 8px;
   border-radius: 8px;
 }
 
 .navbar-left ul li a:hover,
 .navbar-right ul li a:hover {
-  border: 1px solid var(--hospital-green);
-  color: var(--hospital-green);
+  border: 1px solid var(--btnBg);
+  color: var(--btnBg);
 }
 
 .navbar-email {
@@ -81,7 +111,7 @@ nav {
 .navbar-shopping-cart div {
   width: 16px;
   height: 16px;
-  background-color: var(--hospital-green);
+  background-color: var(--btnBg);
   border-radius: 50%;
   font-size: var(--sm);
   font-weight: bold;
@@ -93,10 +123,13 @@ nav {
   align-items: center;
 }
 
+img.shopcartimg {
+  filter: contrast(100%) invert( var(--shopinve) );
+}
 /* Desktop menu */
 
 .desktop-menu {
-  background-color: var(--white);
+  background-color: var(--bg);
   position: absolute;
   top: 60px;
   right: 60px;
@@ -128,12 +161,12 @@ nav {
 }
 
 .desktop-menu ul li:last-child a {
-  color: var(--hospital-green);
+  color: var(--btnBg);
   font-size: var(--sm);
 }
 
 .desktop-menu ul li a {
-  color: var(--back);
+  color: var(--fontColor);
   text-decoration: none;
   margin-bottom: 20px;
   display: inline-block;
@@ -145,7 +178,7 @@ nav {
   position: absolute;
   top: 61px;
   left: 0;
-  background-color: var(--white);
+  background-color: var(--bg);
   width: calc(100% - 48px);
 }
 
@@ -177,7 +210,7 @@ nav {
 
 .sign-out {
   font-size: var(--sm);
-  color: var(--hospital-green) !important;
+  color: var(--btnBg) !important;
 }
 
 /* Aside product  */
@@ -187,7 +220,9 @@ nav {
   box-sizing: border-box;
   position: absolute;
   right: 0;
-  background-color: var(--white);
+  background-color: var(--bg);
+  color: var(--fontColor);
+  z-index: 2;
 }
 
 .title-container {
@@ -213,6 +248,7 @@ nav {
   margin-bottom: 24px;
   border-radius: 8px;
   padding: 0 24px;
+  color: var(--black);
 }
 
 .order p:nth-child(1) {
@@ -259,7 +295,7 @@ nav {
 }
 
 .primary-button {
-  background-color: var(--hospital-green);
+  background-color: var(--btnBg);
   border-radius: 8px;
   border: none;
   color: var(--white);
@@ -306,12 +342,14 @@ nav {
   height: 35px;
 }
 
-.product-card .product-info div p:nth-child(1) {
+.product-info div p:nth-child(1) {
   font-weight: bold;
   font-size: var(--md);
   margin-top: 0;
   margin-bottom: 4px;
+  color: var(--fontColor);
 }
+
 
 .product-card .product-info div p:nth-child(2) {
   font-size: var(--sm);
@@ -329,14 +367,14 @@ nav {
   left: 50%;
   top: calc(50% + 61px);
   padding: 16px;
-  box-shadow: 0 5px 20px var(--black);
+  box-shadow: 0 5px 20px var(--fontColor);
   transform: translate(-50%, -50%);
   z-index: 2;
-  background-color: var(--white);
+  background-color: var(--bg);
   border-radius: 16px;
 }
 .product-preview-close {
-  background: var(--white);
+  background: var(--bg);
   width: 14px;
   height: 14px;
   position: absolute;
@@ -358,11 +396,12 @@ nav {
 .product-preview .product-info {
   margin: 24px 24px 0 24px;
 }
-.product-preview .product-info p:nth-child(1) {
+.product-info p:nth-child(1) {
   font-weight: bold;
   font-size: var(--md);
   margin-top: 0;
   margin-bottom: 4px;
+  color: var(--fontColor);
 }
 .product-preview .product-info p:nth-child(2) {
   color: var(--very-light-pink);
