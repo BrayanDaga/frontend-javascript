@@ -58,12 +58,12 @@ const containerProducts = document.querySelector(".cards-container");
 const productPreview = document.querySelector(".product-preview");
 
 // Nav search
-const pAll = document.querySelector("#pAll");
-const pClothes = document.querySelector("#pClothes");
-const pElectronics = document.querySelector("#pElectronics");
-const pFurnitures = document.querySelector("#pFurnitures");
-const pToys = document.querySelector("#pToys");
-const pOthers = document.querySelector("#pOthers");
+const pAll = document.querySelectorAll(".pAll");
+const pClothes = document.querySelectorAll(".pClothes");
+const pElectronics = document.querySelectorAll(".pElectronics");
+const pFurnitures = document.querySelectorAll(".pFurnitures");
+const pToys = document.querySelectorAll(".pToys");
+const pOthers = document.querySelectorAll(".pOthers");
 
 // theme
 const switcher = document.querySelector(".switcher");
@@ -73,24 +73,44 @@ switcher.addEventListener("click", function () {
   document.body.classList.toggle("dark-theme");
 });
 
-pAll.addEventListener("click", function () {
-  renderListProducts(null);
+pAll.forEach(function(all){
+    all.addEventListener("click", function(){
+      renderListProducts(null);
+      menuMobile.classList.add("inactive");
+    });
 });
-pClothes.addEventListener("click", function () {
-  renderListProducts("clothes");
+
+pClothes.forEach(function(clothe){
+  clothe.addEventListener("click", function(){
+    renderListProducts("clothes");
+    menuMobile.classList.add("inactive");
+  });
 });
-pElectronics.addEventListener("click", function () {
-  renderListProducts("electronics");
+pElectronics.forEach(function(electronic){
+  electronic.addEventListener("click", function(){
+    renderListProducts("electronics");
+    menuMobile.classList.add("inactive");
+  });
 });
-pFurnitures.addEventListener("click", function () {
-  renderListProducts("furniture");
+pFurnitures.forEach(function(furniture){
+  furniture.addEventListener("click", function(){
+    renderListProducts("furniture");
+    menuMobile.classList.add("inactive");
+  });
 });
-pToys.addEventListener("click", function () {
-  renderListProducts("toys");
+pToys.forEach(function(toy){
+  toy.addEventListener("click", function(){
+    renderListProducts("toys");
+    menuMobile.classList.add("inactive");
+  });
 });
-pOthers.addEventListener("click", function () {
-  renderListProducts("others");
+pOthers.forEach(function(other){
+  other.addEventListener("click", function(){
+    renderListProducts("others");
+    menuMobile.classList.add("inactive");
+  });
 });
+
 
 function navFilterProduct() {}
 
@@ -126,7 +146,7 @@ function renderListProducts(category = null) {
           alt="" id="img-product-preview" data-index=${product.id}>
         <div class="product-info">
           <div>
-            <p>${product.price}</p>
+            <p>$${product.price}</p>
             <p>${product.name}</p>
           </div>
           <figure >
