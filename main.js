@@ -65,6 +65,14 @@ const pFurnitures = document.querySelector("#pFurnitures");
 const pToys = document.querySelector("#pToys");
 const pOthers = document.querySelector("#pOthers");
 
+// theme
+const switcher = document.querySelector(".switcher");
+
+switcher.addEventListener("click", function () {
+  document.body.classList.toggle("light-theme");
+  document.body.classList.toggle("dark-theme");
+});
+
 pAll.addEventListener("click", function () {
   renderListProducts(null);
 });
