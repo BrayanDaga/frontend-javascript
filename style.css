@@ -49,6 +49,10 @@ nav {
   justify-content: space-between;
   padding: 0 24px;
   border-bottom: 1px solid var(--very-light-pink);
+  position: sticky;
+  top: 0;
+  background-color: var(--bg);
+  z-index: 2;
 }
 
 .inactive {
@@ -106,6 +110,7 @@ button.switcher {
   border:none;
   background-color: var(--fontColor);
   margin-right: 6px;
+  vertical-align: middle;
 }
 
 .navbar-email {
@@ -136,6 +141,7 @@ button.switcher {
 
 img.shopcartimg {
   filter: contrast(100%) invert( var(--shopinve) );
+  vertical-align: middle;
 }
 
 /* Desktop menu */
@@ -216,14 +222,14 @@ img.shopcartimg {
   margin-bottom: 24px;
 }
 
-.email {
+.mobile-menu .email {
   font-size: var(--sm);
-  font-weight: 300 !important;
+  font-weight: 300 ;
 }
 
-.sign-out {
+.mobile-menu .sign-out {
   font-size: var(--sm);
-  color: var(--btnBg) !important;
+  color: var(--btnBg);
 }
 img.menu {
   filter: invert( var(--shopinve  ) );
