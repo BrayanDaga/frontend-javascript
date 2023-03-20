@@ -79,8 +79,8 @@ function getquantityCart(){
 }
 
 function renderProductsInCart(){
-  productsInCart.innerHTML =  ""
-  cart.forEach(product => {
+  productsInCart.innerHTML =  "";
+  cart.forEach( (product, index)=> {
     productsInCart.innerHTML += `<div class="shopping-cart">
     <figure>
       <img
@@ -89,10 +89,24 @@ function renderProductsInCart(){
     </figure>
     <p>${product.name}</p>
     <p>$${product.price}</p>
-    <img src="./icons/icon_close.png" alt="close">
+    <img src="./icons/icon_close.png" alt="close" id="delProduct" data-index="${index}"
   </div>`;
   });
-  
+  if(cart.length > 0){ renderDelButtons(); }
+}
+
+function renderDelButtons(){
+  const btnsDelProduct = document.querySelectorAll("#delProduct");
+  for (let i = 0; i < btnsDelProduct.length; i++) {
+    const btnDelProduct = btnsDelProduct[i];
+    btnDelProduct.addEventListener("click", function(){
+      productDel = btnDelProduct.dataset.index;   
+      console.log(productDel);
+      cart.splice(productDel, 1);
+      getquantityCart();
+    });
+  }
+
 }
 
 switcher.addEventListener("click", function () {
@@ -199,6 +213,8 @@ function renderBtnAddCart() {
     });
   }
 }
+
+
 
 function renderButtonModal() {
   const imgsProducts = document.querySelectorAll("#img-product-preview");
