@@ -81,14 +81,17 @@ const prevCart = localStorage.getItem(STORAGE_KEY);
 if(prevCart){
   cart = JSON.parse(prevCart);
   getquantityCart();
+  console.log('asds')
 }else{
-  pTotal.innerText = "$ "+ (0).toFixed(2);
-
+  console.log("ffff")
+  pTotal.innerText = "$ 0.00";
 }
 
 
 function getquantityCart(){
+
   quantityCart.innerText = cart.length;   
+  
   renderProductsInCart();
   getTotalPrice();
 }
