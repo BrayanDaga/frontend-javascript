@@ -1,3 +1,4 @@
+const cart = [];
 const listProduct = [
   {
     id: 1,
@@ -68,49 +69,74 @@ const pOthers = document.querySelectorAll(".pOthers");
 // theme
 const switcher = document.querySelector(".switcher");
 
+// Cart
+const quantityCart = document.querySelector("#quantityCart");
+const productsInCart = document.querySelector("#products-in-cart");
+
+function getquantityCart(){
+  quantityCart.innerText = cart.length;   
+  renderProductsInCart();
+}
+
+function renderProductsInCart(){
+  productsInCart.innerHTML =  ""
+  cart.forEach(product => {
+    productsInCart.innerHTML += `<div class="shopping-cart">
+    <figure>
+      <img
+        src="${product.image}"
+        alt="${product.name}">
+    </figure>
+    <p>${product.name}</p>
+    <p>$${product.price}</p>
+    <img src="./icons/icon_close.png" alt="close">
+  </div>`;
+  });
+  
+}
+
 switcher.addEventListener("click", function () {
   document.body.classList.toggle("light-theme");
   document.body.classList.toggle("dark-theme");
 });
 
-pAll.forEach(function(all){
-    all.addEventListener("click", function(){
-      renderListProducts(null);
-      menuMobile.classList.add("inactive");
-    });
+pAll.forEach(function (all) {
+  all.addEventListener("click", function () {
+    renderListProducts(null);
+    menuMobile.classList.add("inactive");
+  });
 });
 
-pClothes.forEach(function(clothe){
-  clothe.addEventListener("click", function(){
+pClothes.forEach(function (clothe) {
+  clothe.addEventListener("click", function () {
     renderListProducts("clothes");
     menuMobile.classList.add("inactive");
   });
 });
-pElectronics.forEach(function(electronic){
-  electronic.addEventListener("click", function(){
+pElectronics.forEach(function (electronic) {
+  electronic.addEventListener("click", function () {
     renderListProducts("electronics");
     menuMobile.classList.add("inactive");
   });
 });
-pFurnitures.forEach(function(furniture){
-  furniture.addEventListener("click", function(){
+pFurnitures.forEach(function (furniture) {
+  furniture.addEventListener("click", function () {
     renderListProducts("furniture");
     menuMobile.classList.add("inactive");
   });
 });
-pToys.forEach(function(toy){
-  toy.addEventListener("click", function(){
+pToys.forEach(function (toy) {
+  toy.addEventListener("click", function () {
     renderListProducts("toys");
     menuMobile.classList.add("inactive");
   });
 });
-pOthers.forEach(function(other){
-  other.addEventListener("click", function(){
+pOthers.forEach(function (other) {
+  other.addEventListener("click", function () {
     renderListProducts("others");
     menuMobile.classList.add("inactive");
   });
 });
-
 
 function navFilterProduct() {}
 
@@ -132,6 +158,8 @@ shoppingCart.addEventListener("click", function () {
 
 renderListProducts();
 
+
+
 function toogleContent(element) {
   return element.classList.toggle("inactive");
 }
@@ -150,18 +178,30 @@ function renderListProducts(category = null) {
             <p>${product.name}</p>
           </div>
           <figure >
-            <img src="./icons/bt_add_to_cart.svg" alt="" class="addcart-img">
+            <img src="./icons/bt_add_to_cart.svg" alt="" class="addcart-img" data-index=${product.id}>
           </figure>
         </div>
         </div>`;
   });
-  renderButtons();
+  renderButtonModal();
+  renderBtnAddCart();  
 }
 
-function renderButtons() {
-  const imgsProducts = (productImg = document.querySelectorAll(
-    "#img-product-preview"
-  ));
+function renderBtnAddCart() {
+  const btnsAddCart = document.querySelectorAll(".addcart-img");
+  for (let i = 0; i < btnsAddCart.length; i++) {
+    const btnAddCart = btnsAddCart[i];
+    btnAddCart.addEventListener("click", function () {
+      const productid = btnAddCart.dataset.index;
+      let product = listProduct.find(product => product.id == productid);
+      cart.push(product);
+      getquantityCart();
+    });
+  }
+}
+
+function renderButtonModal() {
+  const imgsProducts = document.querySelectorAll("#img-product-preview");
   for (let i = 0; i < imgsProducts.length; i++) {
     const imgProduct = imgsProducts[i];
 
@@ -195,7 +235,7 @@ function renderProductPreview(productid) {
   <p>${productSelect.name}</p>
   <p>With its practical position, this bike also fulfills a decorative function, add your hall or workspace.</p>
   <button class="primary-button add-to-cart-button">
-    <img src="./icons/bt_add_to_cart.svg" alt="add to cart" class="addcart-img">
+    <img src="./icons/bt_add_to_cart.svg" alt="add to cart" class="addcart-img" data-index=${productSelect.id}>
     Add to cart
   </button>
 </div>`;

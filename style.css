@@ -384,7 +384,7 @@ img.menu {
 /* Procut preview */
 .product-preview {
   width: 360px;
-  max-width: 392px;
+  max-width: 360px;
   /* padding-bottom: 24px; */
   position: absolute;
   left: 50%;
