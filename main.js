@@ -3,7 +3,7 @@ const listProduct = [
   {
     id: 1,
     name: "Bike",
-    price: 120.0,
+    price: 120.00,
     category: "others",
     image:
       "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
@@ -12,14 +12,14 @@ const listProduct = [
     id: 2,
     name: "Tv",
     category: "electronics",
-    price: 200.0,
+    price: 500.89,
     image:
       "https://images.pexels.com/photos/2726370/pexels-photo-2726370.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
   {
     id: 3,
     name: "Computer",
-    price: 800.0,
+    price: 1800.70,
     category: "electronics",
     image:
       "https://images.pexels.com/photos/1181216/pexels-photo-1181216.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -27,7 +27,7 @@ const listProduct = [
   {
     id: 4,
     name: "Jackket",
-    price: 150.0,
+    price: 150.50,
     category: "clothes",
     image:
       "https://images.pexels.com/photos/747470/pexels-photo-747470.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -43,7 +43,7 @@ const listProduct = [
   {
     id: 6,
     name: "Mario Bros",
-    price: 800.0,
+    price: 350.99,
     category: "toys",
     image:
       "https://images.pexels.com/photos/163036/mario-luigi-yoschi-figures-163036.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -72,11 +72,19 @@ const switcher = document.querySelector(".switcher");
 // Cart
 const quantityCart = document.querySelector("#quantityCart");
 const productsInCart = document.querySelector("#products-in-cart");
-
+const pTotal = document.querySelector("#pTotal");
+pTotal.innerText = "$ "+ (0).toFixed(2);
 function getquantityCart(){
   quantityCart.innerText = cart.length;   
   renderProductsInCart();
+  getTotalPrice();
 }
+
+function getTotalPrice(){
+  const total = cart.reduce( (a, c) => a + c.price ,0 );
+  pTotal.innerText = "$ " + total.toFixed(2);
+}
+
 
 function renderProductsInCart(){
   productsInCart.innerHTML =  "";
@@ -88,7 +96,7 @@ function renderProductsInCart(){
         alt="${product.name}">
     </figure>
     <p>${product.name}</p>
-    <p>$${product.price}</p>
+    <p>$ ${product.price.toFixed(2)}</p>
     <img src="./icons/icon_close.png" alt="close" id="delProduct" data-index="${index}"
   </div>`;
   });
@@ -101,7 +109,6 @@ function renderDelButtons(){
     const btnDelProduct = btnsDelProduct[i];
     btnDelProduct.addEventListener("click", function(){
       productDel = btnDelProduct.dataset.index;   
-      console.log(productDel);
       cart.splice(productDel, 1);
       getquantityCart();
     });
@@ -188,7 +195,7 @@ function renderListProducts(category = null) {
           alt="" id="img-product-preview" data-index=${product.id}>
         <div class="product-info">
           <div>
-            <p>$${product.price}</p>
+            <p>$ ${product.price.toFixed(2)}</p>
             <p>${product.name}</p>
           </div>
           <figure >
@@ -231,7 +238,9 @@ function renderButtonModal() {
       imgClose.addEventListener("click", function () {
         productPreview.classList.add("inactive");
       });
+
       menuMobile.classList.add("inactive");
+      addCartProductPreview();
     });
   }
 }
@@ -247,14 +256,24 @@ function renderProductPreview(productid) {
   src="${productSelect.image}"
   alt="${productSelect.name}">
 <div class="product-info">
-  <p>$${productSelect.price}</p>
+  <p>$ ${productSelect.price.toFixed(2)}</p>
   <p>${productSelect.name}</p>
   <p>With its practical position, this bike also fulfills a decorative function, add your hall or workspace.</p>
-  <button class="primary-button add-to-cart-button">
-    <img src="./icons/bt_add_to_cart.svg" alt="add to cart" class="addcart-img" data-index=${productSelect.id}>
+  <button class="primary-button add-to-cart-button" data-index="${productSelect.id}">
+    <img src="./icons/bt_add_to_cart.svg" alt="add to cart" class="addcart-img" >
     Add to cart
   </button>
 </div>`;
+}
+
+function addCartProductPreview(){
+  const addCartButton = document.querySelector(".add-to-cart-button");
+  addCartButton.addEventListener("click", function(){
+      let productid = addCartButton.dataset.index;   
+      let product = listProduct.find( product => product.id == productid);
+      cart.push(product);
+      getquantityCart();
+  });
 }
 
 function productsByCategory(category) {
