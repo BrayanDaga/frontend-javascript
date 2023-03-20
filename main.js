@@ -3,7 +3,7 @@ const listProduct = [
   {
     id: 1,
     name: "Bike",
-    price: 120.00,
+    price: 120.0,
     category: "others",
     image:
       "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
@@ -19,7 +19,7 @@ const listProduct = [
   {
     id: 3,
     name: "Computer",
-    price: 1800.70,
+    price: 1800.7,
     category: "electronics",
     image:
       "https://images.pexels.com/photos/1181216/pexels-photo-1181216.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -27,7 +27,7 @@ const listProduct = [
   {
     id: 4,
     name: "Jackket",
-    price: 150.50,
+    price: 150.5,
     category: "clothes",
     image:
       "https://images.pexels.com/photos/747470/pexels-photo-747470.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -75,36 +75,40 @@ const productsInCart = document.querySelector("#products-in-cart");
 const pTotal = document.querySelector("#pTotal");
 
 // localStorage
-const STORAGE_KEY = '__cart-products__';
+const STORAGE_KEY = "__cart-products__";
 const prevCart = localStorage.getItem(STORAGE_KEY);
+const theme = localStorage.getItem("theme");
 
-if(prevCart){
+if (theme) {
+  document.body.classList.toggle("light-theme");
+  document.body.classList.toggle("dark-theme");
+
+} else {
+  document.body.classList.add("dark-theme");
+}
+
+if (prevCart) {
   cart = JSON.parse(prevCart);
   getquantityCart();
-  console.log('asds')
-}else{
-  console.log("ffff")
+} else {
   pTotal.innerText = "$ 0.00";
 }
 
+function getquantityCart() {
+  quantityCart.innerText = cart.length;
 
-function getquantityCart(){
-
-  quantityCart.innerText = cart.length;   
-  
   renderProductsInCart();
   getTotalPrice();
 }
 
-function getTotalPrice(){
-  const total = cart.reduce( (a, c) => a + c.price ,0 );
+function getTotalPrice() {
+  const total = cart.reduce((a, c) => a + c.price, 0);
   pTotal.innerText = "$ " + total.toFixed(2);
 }
 
-
-function renderProductsInCart(){
-  productsInCart.innerHTML =  "";
-  cart.forEach( (product, index)=> {
+function renderProductsInCart() {
+  productsInCart.innerHTML = "";
+  cart.forEach((product, index) => {
     productsInCart.innerHTML += `<div class="shopping-cart">
     <figure>
       <img
@@ -116,29 +120,36 @@ function renderProductsInCart(){
     <img src="./icons/icon_close.png" alt="close" id="delProduct" data-index="${index}"
   </div>`;
   });
-  if(cart.length > 0){ renderDelButtons(); }
+  if (cart.length > 0) {
+    renderDelButtons();
+  }
 }
 
-function renderDelButtons(){
+function renderDelButtons() {
   const btnsDelProduct = document.querySelectorAll("#delProduct");
   for (let i = 0; i < btnsDelProduct.length; i++) {
     const btnDelProduct = btnsDelProduct[i];
-    btnDelProduct.addEventListener("click", function(){
-      productDel = btnDelProduct.dataset.index;   
+    btnDelProduct.addEventListener("click", function () {
+      productDel = btnDelProduct.dataset.index;
       cart.splice(productDel, 1);
       getquantityCart();
 
       // localStorage
       localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-
     });
   }
-
 }
 
 switcher.addEventListener("click", function () {
   document.body.classList.toggle("light-theme");
   document.body.classList.toggle("dark-theme");
+  
+  const className = document.body.className;
+  if (className == "light-theme") {
+    localStorage.setItem("theme", "ligth-theme");
+  } else {
+    localStorage.setItem("theme", "dark-theme");
+  }
 });
 
 pAll.forEach(function (all) {
@@ -199,8 +210,6 @@ shoppingCart.addEventListener("click", function () {
 
 renderListProducts();
 
-
-
 function toogleContent(element) {
   return element.classList.toggle("inactive");
 }
@@ -219,13 +228,15 @@ function renderListProducts(category = null) {
             <p>${product.name}</p>
           </div>
           <figure >
-            <img src="./icons/bt_add_to_cart.svg" alt="" class="addcart-img" data-index=${product.id}>
+            <img src="./icons/bt_add_to_cart.svg" alt="" class="addcart-img" data-index=${
+              product.id
+            }>
           </figure>
         </div>
         </div>`;
   });
   renderButtonModal();
-  renderBtnAddCart();  
+  renderBtnAddCart();
 }
 
 function renderBtnAddCart() {
@@ -234,17 +245,15 @@ function renderBtnAddCart() {
     const btnAddCart = btnsAddCart[i];
     btnAddCart.addEventListener("click", function () {
       const productid = btnAddCart.dataset.index;
-      let product = listProduct.find(product => product.id == productid);
+      let product = listProduct.find((product) => product.id == productid);
       cart.push(product);
       getquantityCart();
 
-       // localStorage
+      // localStorage
       localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
     });
   }
 }
-
-
 
 function renderButtonModal() {
   const imgsProducts = document.querySelectorAll("#img-product-preview");
@@ -282,23 +291,25 @@ function renderProductPreview(productid) {
   <p>$ ${productSelect.price.toFixed(2)}</p>
   <p>${productSelect.name}</p>
   <p>With its practical position, this bike also fulfills a decorative function, add your hall or workspace.</p>
-  <button class="primary-button add-to-cart-button" data-index="${productSelect.id}">
+  <button class="primary-button add-to-cart-button" data-index="${
+    productSelect.id
+  }">
     <img src="./icons/bt_add_to_cart.svg" alt="add to cart" class="addcart-img" >
     Add to cart
   </button>
 </div>`;
 }
 
-function addCartProductPreview(){
+function addCartProductPreview() {
   const addCartButton = document.querySelector(".add-to-cart-button");
-  addCartButton.addEventListener("click", function(){
-      let productid = addCartButton.dataset.index;   
-      let product = listProduct.find( product => product.id == productid);
-      cart.push(product);
-      getquantityCart();
+  addCartButton.addEventListener("click", function () {
+    let productid = addCartButton.dataset.index;
+    let product = listProduct.find((product) => product.id == productid);
+    cart.push(product);
+    getquantityCart();
 
-       // localStorage
-       localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+    // localStorage
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
   });
 }
 
