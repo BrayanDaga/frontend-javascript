@@ -80,8 +80,14 @@ const prevCart = localStorage.getItem(STORAGE_KEY);
 const theme = localStorage.getItem("theme");
 
 if (theme) {
-  document.body.classList.toggle("light-theme");
-  document.body.classList.toggle("dark-theme");
+
+  if( theme == 'dark-theme'){
+    document.body.classList.add('dark-theme');
+    document.body.classList.remove('light-theme');
+  }else if(theme == 'light-theme'){
+    document.body.classList.add('light-theme');
+    document.body.classList.remove('dark-theme');
+  }
 
 } else {
   document.body.classList.add("dark-theme");
@@ -141,12 +147,13 @@ function renderDelButtons() {
 }
 
 switcher.addEventListener("click", function () {
+  
   document.body.classList.toggle("light-theme");
   document.body.classList.toggle("dark-theme");
   
   const className = document.body.className;
   if (className == "light-theme") {
-    localStorage.setItem("theme", "ligth-theme");
+    localStorage.setItem("theme", "light-theme");
   } else {
     localStorage.setItem("theme", "dark-theme");
   }
